@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Nutrición - Platillos Saludables</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:#eef3f4;
+}
+
+/* TITULOS */
+h1,h2{
+    text-align:center;
+    color:#2c3e50;
+}
+
+/* ===== CARRUSEL ===== */
+.carousel{
+    position:relative;
+    width:90%;
+    max-width:1000px;
+    margin:30px auto;
+    overflow:hidden;
+    border-radius:15px;
+}
+
+.slides{
+    display:flex;
+    transition:transform .5s ease;
+}
+
+.card{
+    position:relative;
+    min-width:100%;
+    height:420px;
+    cursor:pointer;
+    transition:.4s;
+}
+
+.card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.info{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    background:rgba(0,0,0,.75);
+    color:white;
+    padding:20px;
+    transform:translateY(100%);
+    transition:.4s;
+}
+
+.card:hover{
+    transform:scale(1.03);
+}
+
+.card:hover .info{
+    transform:translateY(0);
+}
+
+.btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:#27ae60;
+    border:none;
+    padding:10px 15px;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.prev{ left:10px;}
+.next{ right:10px;}
+
+
+/* ===== SECCIONES INFORMATIVAS ===== */
+.section{
+    width:90%;
+    max-width:1000px;
+    margin:40px auto;
+}
+
+.box{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+    line-height:1.6;
+    margin-bottom:30px;
+}
+
+.box ul{
+    text-align:left;
+    max-width:800px;
+    margin:auto;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .card{ height:280px;}
+}
+</style>
+</head>
+
+<body>
+
+<h1>🍽️ Platillos Saludables</h1>
+
+<!-- ========= CARRUSEL ========= -->
+<div class="carousel">
+    <div class="slides" id="slides">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c">
+            <div class="info">
+                <h2>Ensalada Balanceada</h2>
+                <p>Fibra, vitaminas y proteína magra.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d">
+            <div class="info">
+                <h2>Pechuga a la Plancha</h2>
+                <p>Alta en proteínas, baja en grasa.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836">
+            <div class="info">
+                <h2>Tacos de Pescado</h2>
+                <p>Omega 3 y grasas saludables.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777">
+            <div class="info">
+                <h2>Yogurt con Frutas</h2>
+                <p>Probióticos y energía natural.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <button class="btn prev" onclick="move(-1)">❮</button>
+    <button class="btn next" onclick="move(1)">❯</button>
+</div>
+
+
+<!-- ========= SECCIÓN COMIDA SALUDABLE ========= -->
+<div class="section">
+    <div class="box">
+        <h2>🥗 ¿Qué es la comida saludable?</h2>
+        <p>
+        Es aquella que aporta los nutrimentos necesarios para el buen funcionamiento del cuerpo,
+        mantiene un peso adecuado y previene enfermedades como diabetes, obesidad e hipertensión.
+        </p>
+
+        <ul>
+            <li>✔ Incluye frutas y verduras todos los días</li>
+            <li>✔ Prefiere cereales integrales</li>
+            <li>✔ Consume proteínas magras (pollo, pescado, leguminosas)</li>
+            <li>✔ Reduce azúcares, sal y grasas saturadas</li>
+            <li>✔ Bebe suficiente agua simple</li>
+        </ul>
+    </div>
+</div>
+
+
+<!-- ========= SECCIÓN ETIQUETADO ========= -->
+<div class="section">
+    <div class="box">
+        <h2>🏷️ ¿Cómo leer el etiquetado de los productos?</h2>
+
+        <p>
+        En México los alimentos deben mostrar sellos negros de advertencia cuando contienen exceso de:
+        </p>
+
+        <ul>
+            <li>⚠ Exceso de calorías</li>
+            <li>⚠ Exceso de azúcares</li>
+            <li>⚠ Exceso de sodio</li>
+            <li>⚠ Exceso de grasas saturadas o trans</li>
+        </ul>
+
+        <p>
+        También es importante revisar:
+        </p>
+
+        <ul>
+            <li>Porción indicada</li>
+            <li>Calorías por porción</li>
+            <li>Lista de ingredientes (de mayor a menor cantidad)</li>
+            <li>Fecha de caducidad</li>
+        </ul>
+
+        <p>
+        Esto ayuda a tomar decisiones más saludables al momento de comprar.
+        </p>
+    </div>
+</div>
+
+
+<script>
+let index = 0;
+
+function move(step){
+    const slides = document.getElementById("slides");
+    const total = slides.children.length;
+
+    index += step;
+
+    if(index < 0) index = total-1;
+    if(index >= total) index = 0;
+
+    slides.style.transform = `translateX(-${index * 100}%)`;
+}
+
+setInterval(()=> move(1), 4000);
+</script>
+
+</body>
+</html>
